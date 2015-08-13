@@ -1,0 +1,6 @@
+{
+  "name": "Lounge",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Lounge.js"
+}

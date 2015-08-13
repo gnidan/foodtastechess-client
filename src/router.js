@@ -11,12 +11,16 @@ import RegisterPage from './components/RegisterPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 
+import LoungePage from './components/Lounge';
+
 const router = new Router(on => {
 
   on('*', async (state, next) => {
     const component = await next();
     return component && <App context={state.context}>{component}</App>;
   });
+
+  on('/lounge', async () => <LoungePage />);
 
   on('/contact', async () => <ContactPage />);
 
