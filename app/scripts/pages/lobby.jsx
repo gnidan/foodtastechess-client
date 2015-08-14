@@ -1,15 +1,13 @@
 import React from 'react';
+import GameList from '../components/GameList.jsx';
 
 class Lobby extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>FoodTaste Chess Lobby</h1>
-        <p>
-          Lobby yes.
-        </p>
-      </div>
+        <div>
+          <GameList />
+        </div>
     );
   }
 
