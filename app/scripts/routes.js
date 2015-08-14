@@ -2,15 +2,17 @@ import React from 'react';
 import { Route, DefaultRoute, NotFoundRoute } from 'react-router';
 
 import App from './pages/app.jsx';
-import Home from './pages/home.jsx';
-import Info from './pages/info.jsx';
+
+import Lobby from './pages/lobby.jsx';
+import Game from './pages/game.jsx';
+
 import NotFound from './pages/notFound.jsx';
 
 var routes = (
   <Route name="app" path="/" handler={ App }>
-    <Route name="info" handler={ Info } />
-    <Route name="home" handler={ Home } />
-    <DefaultRoute handler={ Home } />
+    <Route name="game" handler={ Game } />
+    <Route name="lobby" handler={ Lobby } />
+    <DefaultRoute handler={ Lobby } />
     <NotFoundRoute handler={ NotFound } />
   </Route>
 );
