@@ -4,4 +4,4 @@ import routes from './routes';
 import $ from 'jquery';
 
 
-Router.run(routes, Handler => React.render(<Handler />, document.body));
+Router.run(routes, Handler => React.render(<Handler />, $(".container")[0]));
