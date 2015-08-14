@@ -40,7 +40,9 @@
     "webpack": "^1.7.3"
   },
   "dependencies": {
+    "jquery": "^2.1.4",
     "react": "^0.13.1",
+    "react-bootstrap": "^0.24.4",
     "react-router": "^0.13.2",
     "reflux": "^0.2.7"
   },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Alert } from 'react-bootstrap';
 
 class Header extends React.Component{
 
@@ -11,6 +12,9 @@ class Header extends React.Component{
     return (
       <header className="clearfix">
         Application Name
+        <Alert bsStyle="warning">
+            Holy guacamole!
+        </Alert>
 
         <nav className="clearfix">
           <div className="nav-item">
