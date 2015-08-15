@@ -10,9 +10,7 @@ class GameSidebar extends React.Component {
         </div>
         <div className="panel-body">
           <div className="row-fluid">
-            <div>
-              <GameNavigation />
-            </div>
+            <GameNavigation />
           </div>
         </div>
       </div>
