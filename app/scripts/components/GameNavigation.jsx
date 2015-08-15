@@ -1,4 +1,5 @@
 import React from 'react';
+import GameHistory from './GameHistory.jsx';
 import GameNavBar from './GameNavBar.jsx';
 
 class GameNavigation extends React.Component {
@@ -6,7 +7,7 @@ class GameNavigation extends React.Component {
     return (
       <div>
         <GameNavBar />
-
+        <GameHistory />
       </div>
     );
   }
