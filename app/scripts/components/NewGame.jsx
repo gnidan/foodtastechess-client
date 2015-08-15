@@ -39,7 +39,7 @@ class NewGameModal extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
-            <Button>
+            <Button bsStyle='success'>
               Create Game
             </Button>
           </Modal.Footer>

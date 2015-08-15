@@ -10,6 +10,11 @@ $black = #222
 $white = #f7f7f7
 
 html
+body
+  width:100%
+  height:100%
+
+html
 button
 input
 select
@@ -47,3 +52,35 @@ header
 
 .content
   padding: 1em
+
+.chessboard
+  display: table
+  width: 100%
+  height: 100%
+  margin: 0 auto
+  border: 4px solid #c4ab2d
+
+.square_wrapper
+  float: left
+  position: relative
+  width: 12.5%
+  padding-bottom: 12.5%
+  overflow: hidden
+
+.boardsquare
+  position: absolute
+  text-align: center
+  width: 100%
+  height: 100%
+  padding: 0
+
+.square_align
+  display: table
+  height: 100%
+  width: 100%
+
+.inner_square
+  display: table-cell
+  vertical-align: middle
+  height: 100%
+  width: 100%

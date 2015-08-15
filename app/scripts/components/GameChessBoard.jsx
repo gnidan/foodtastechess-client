@@ -1,7 +1,7 @@
 import React from 'react';
 import BoardSquare from './BoardSquare.jsx';
 
-class GameScreen extends React.Component {
+class GameChessBoard extends React.Component {
   render_square(pos) {
     var file = pos % 8;
     var rank = Math.floor(pos / 8);
@@ -27,4 +27,4 @@ class GameScreen extends React.Component {
   }
 }
 
-export default GameScreen;
+export default GameChessBoard;

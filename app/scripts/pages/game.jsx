@@ -1,6 +1,6 @@
 import React from 'react';
 import CapturedPieces from '../components/CapturedPieces.jsx';
-import GameScreen from '../components/GameScreen.jsx';
+import GameChessBoard from '../components/GameChessBoard.jsx';
 import GameSidebar from '../components/GameSidebar.jsx';
 
 class Game extends React.Component {
@@ -16,7 +16,7 @@ class Game extends React.Component {
           </div>
 
           <div className="col-sm-6">
-            <GameScreen />
+            <GameChessBoard />
           </div>
 
           <div className="col-sm-3">
