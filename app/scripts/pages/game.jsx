@@ -1,4 +1,5 @@
 import React from 'react';
+import CapturedPieces from '../components/CapturedPieces.jsx';
 import GameScreen from '../components/GameScreen.jsx';
 import GameNavigation from '../components/GameNavigation.jsx';
 
@@ -11,10 +12,7 @@ class Game extends React.Component {
         </div>
         <div className="panel-body">
           <div className="col-sm-3">
-            <div className="panel panel-default">
-              <div className="panel-heading"><strong>Captured Pieces</strong></div>
-              <div className="panel-body" style={{height: '200px'}}></div>
-            </div>
+            <CapturedPieces />
           </div>
 
           <div className="col-sm-6">
