@@ -1,6 +1,8 @@
 import React from 'react';
 import CapturedPieces from '../components/CapturedPieces.jsx';
 import GameChessBoard from '../components/GameChessBoard.jsx';
+import GameConcede from '../components/GameConcede.jsx';
+import GameOfferDraw from '../components/GameOfferDraw.jsx';
 import GameSidebar from '../components/GameSidebar.jsx';
 
 class Game extends React.Component {
@@ -13,6 +15,10 @@ class Game extends React.Component {
         <div className="panel-body">
           <div className="col-sm-3">
             <CapturedPieces />
+            <hr />
+            <GameOfferDraw />
+            <br />
+            <GameConcede />
           </div>
 
           <div className="col-sm-6">

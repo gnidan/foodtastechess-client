@@ -1,12 +1,13 @@
 import React from 'react';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal, ButtonGroup, Button} from 'react-bootstrap';
 
 class NewGameModal extends React.Component {
   constructor(props) {
     super(props);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
-    this.state = { showModal: false };
+    this.state = { showModal: false
+                 , color: 'random'};
   }
 
   close() {
@@ -17,25 +18,45 @@ class NewGameModal extends React.Component {
     this.setState({ showModal: true });
   }
 
+  _onOptionChange(color) {
+    this.setState({
+      color: color
+    });
+  }
 
   render() {
 
     return (
       <div>
         <Button
-          bsStyle='primary'
-          bsSize='large'
-          block
-          onClick={this.open}>
+                bsStyle='primary'
+                bsSize='large'
+                block
+                onClick={this.open}>
           Create a New Game
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>New Game</Modal.Title>
+            <Modal.Title>Create a New Game</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            This is where you create a new game, doot da doo.
+            <h1>Choose a color</h1>
+            <ButtonGroup style={{margin: '10px'}}>
+
+              <Button bsStyle={this.state.color === 'random' ? 'info' : 'default'}
+                      onClick={this._onOptionChange.bind(this, 'random')}
+                      active={this.state.color === 'random'}>Random</Button>
+
+              <Button bsStyle={this.state.color === 'black' ? 'info' : 'default'}
+                      onClick={this._onOptionChange.bind(this, 'black')}
+                      active={this.state.color === 'black'}>Black</Button>
+
+              <Button bsStyle={this.state.color === 'white' ? 'info' : 'default'}
+                      onClick={this._onOptionChange.bind(this, 'white')}
+                      active={this.state.color === 'white'}>White</Button>
+
+            </ButtonGroup>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
