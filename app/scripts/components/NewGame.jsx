@@ -1,5 +1,5 @@
 import React from 'react';
-import {Jumbotron, Modal, ButtonGroup, Button} from 'react-bootstrap';
+import {Modal, ButtonGroup, Button} from 'react-bootstrap';
 
 class NewGameModal extends React.Component {
   constructor(props) {
