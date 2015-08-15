@@ -1,7 +1,7 @@
 import React from 'react';
 import CapturedPieces from '../components/CapturedPieces.jsx';
 import GameScreen from '../components/GameScreen.jsx';
-import GameNavigation from '../components/GameNavigation.jsx';
+import GameSidebar from '../components/GameSidebar.jsx';
 
 class Game extends React.Component {
   render() {
@@ -20,18 +20,7 @@ class Game extends React.Component {
           </div>
 
           <div className="col-sm-3">
-            <div className="panel panel-info">
-              <div className="panel-heading" style={{textAlign: 'center'}}>
-                <h4>It is currently your turn.</h4>
-              </div>
-              <div className="panel-body">
-                <div className="row-fluid">
-                  <div>
-                    <GameNavigation />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <GameSidebar />
           </div>
 
         </div>
