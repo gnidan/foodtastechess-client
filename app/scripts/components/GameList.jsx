@@ -1,5 +1,6 @@
 import React from 'react';
 import GameInstance from './GameInstance.jsx';
+import NewGameModal from './NewGame.jsx';
 
 class GameList extends React.Component {
   game_list_json() {
@@ -26,7 +27,7 @@ class GameList extends React.Component {
           <div className="page-header">
             <h1>FoodTaste Chess v0.1</h1>
           </div>
-          <button type="button" className="btn btn-primary btn-block btn-lg">New Game</button>
+          <NewGameModal />
         </div>
         <div className="panel-body">
           {this.game_objects()}
