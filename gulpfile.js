@@ -69,6 +69,12 @@ gulp.task('serve', function() {
   });
 });
 
+gulp.task('fonts', function(cb) {
+  return gulp.src(app + 'fonts/**/*.{eot,svg,ttf,woff,woff2}')
+    .pipe($.size({ title: 'fonts' }))
+    .pipe(gulp.dest(dist + 'fonts/'));
+});
+
 // copy images
 gulp.task('images', function(cb) {
   return gulp.src(app + 'images/**/*.{png,jpg,jpeg,gif}')
@@ -95,5 +101,5 @@ gulp.task('default', ['build', 'serve', 'watch']);
 
 // waits until clean is finished then builds the project
 gulp.task('build', ['clean'], function(){
-  gulp.start(['images', 'html','scripts','styles']);
+  gulp.start(['fonts','images', 'html','scripts','styles']);
 });
