@@ -10,7 +10,9 @@ class GameList extends React.Component {
   game_objects() {
     var games = [];
     for (var i = 0; i < 10; i++) {
-      games.push(React.createElement(GameInstance));
+      games.push(
+          <GameInstance key={i} />
+      );
     }
     return (
       <div className="panel-group">
