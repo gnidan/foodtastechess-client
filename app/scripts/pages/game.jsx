@@ -1,11 +1,27 @@
 import React from 'react';
+
 import CapturedPieces from '../components/CapturedPieces.jsx';
 import GameChessBoard from '../components/GameChessBoard.jsx';
 import GameConcede from '../components/GameConcede.jsx';
 import GameOfferDraw from '../components/GameOfferDraw.jsx';
 import GameSidebar from '../components/GameSidebar.jsx';
 
+import GameActions from '../actions/GameActions';
+import GameStore from '../stores/GameStore';
+
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  componentDidMount() {
+  }
+
+  componentWillUnmount() {
+  }
+
   render() {
     return (
       <div className="panel panel-default">
