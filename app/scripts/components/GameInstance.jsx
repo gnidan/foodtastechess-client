@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 class GameInstance extends React.Component {
   render() {
@@ -21,11 +22,9 @@ class GameInstance extends React.Component {
     }
 
     return (
-      <div className={status}>
-        <div className="panel-heading">
-          {status_text}
-        </div>
-      </div>
+      <Button block>
+        {status_text}
+      </Button>
     );
   }
 }
