@@ -13,22 +13,33 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      gamestate: ''
     };
   }
 
   componentDidMount() {
+    this.unsubscribe = GameStore.listen(this.onStatusChange.bind(this));
   }
 
   componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onStatusChange(state) {
+    this.setState(state);
   }
 
   render() {
+
     return (
       <div className="panel panel-default">
+
         <div className="panel-heading">
           <strong>FoodTaste Chess v0.0</strong>
         </div>
+
         <div className="panel-body">
+
           <div className="col-sm-3">
             <CapturedPieces />
             <hr />
