@@ -3,22 +3,16 @@ import GameInstance from './GameInstance.jsx';
 import NewGameModal from './NewGame.jsx';
 
 class GameList extends React.Component {
-  game_list_json() {
-
+  constructor() {
+    super();
   }
 
-  game_objects() {
-    var games = [];
-    for (var i = 0; i < 10; i++) {
-      games.push(
-          <GameInstance key={i} />
-      );
-    }
-    return (
-      <div className="panel-group">
-        {games}
-      </div>
-    )
+  loading() {
+    return this.props.loading ? <div className="loading-label">Loading...</div> : '';
+  }
+
+  games() {
+    return this.props.games ? this.props.games.map(game => <GameInstance key={game} />) : "You don't have any active games!";
   }
 
   render() {
@@ -32,11 +26,19 @@ class GameList extends React.Component {
           <NewGameModal />
         </div>
         <div className="panel-body">
-          {this.game_objects()}
+          { this.loading() }
+          <div className="panel-group">
+          { this.games() }
+          </div>
         </div>
       </div>
     );
   }
+}
+
+GameList.propTypes = {
+  loading:  React.PropTypes.bool,
+  games:    React.PropTypes.array
 }
 
 export default GameList;
