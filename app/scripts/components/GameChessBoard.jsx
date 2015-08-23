@@ -23,16 +23,16 @@ class GameChessBoard extends React.Component {
 
   render_row(fen, row_num) {
     var squares = [];
+    var pos = row_num * 8;
 
     for (var i = 0; i < fen.length; i++) {
-      var pos = (row_num * 8) + i;
-
       if (isNaN(fen[i])) {
         squares.push(this.render_square(pos, fen[i]));
+        pos++;
       }
       else {
         var blank = parseInt(fen[i]);
-        for (; i < blank; i++, pos++) {
+        for (var j = 0; j < blank; j++, pos++) {
           squares.push(this.render_square(pos, '-'));
         }
       }
