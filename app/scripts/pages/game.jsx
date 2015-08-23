@@ -1,4 +1,5 @@
 import React from 'react';
+import Reflux from 'reflux';
 
 import CapturedPieces from '../components/CapturedPieces.jsx';
 import GameChessBoard from '../components/GameChessBoard.jsx';
@@ -9,27 +10,18 @@ import GameSidebar from '../components/GameSidebar.jsx';
 import GameActions from '../actions/GameActions';
 import GameStore from '../stores/GameStore';
 
-class Game extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+var Game = React.createClass({
+  getInitialState: function() {
+    return {
       historyMode: false
     };
-  }
+  },
 
-  componentDidMount() {
-    this.unsubscribe = GameStore.listen(this.onStatusChange.bind(this));
-  }
+  componentDidMount: function() {
+    GameActions.loadGames();
+  },
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  onStatusChange(state) {
-    this.setState(state);
-  }
-
-  render() {
+  render: function() {
 
     return (
       <div className="panel panel-default">
@@ -63,6 +55,6 @@ class Game extends React.Component {
       </div>
     );
   }
-}
+});
 
 export default Game;
