@@ -7,8 +7,6 @@ class GameChessBoard extends React.Component {
     super(props);
     this.squareClickHandler = this.squareClickHandler.bind(this);
     this.state = {
-      fen: GameStore.getGameFEN(),
-      history_mode: false,
       active_square: null,
       valid_moves: []
     }
@@ -74,7 +72,7 @@ class GameChessBoard extends React.Component {
 
   squares() {
     var squares = [],
-        fen_rows = this.state.fen.split(' ')[0].split('/');
+        fen_rows = this.props.fen.split(' ')[0].split('/');
 
     for (var row = 0; row < fen_rows.length; row += 1) {
       squares.push(this.render_row(fen_rows[row], row));

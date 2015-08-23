@@ -13,7 +13,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gamestate: ''
+      historyMode: false
     };
   }
 
@@ -49,7 +49,10 @@ class Game extends React.Component {
           </div>
 
           <div className="col-sm-6">
-            <GameChessBoard />
+            <GameChessBoard
+                fen={ GameStore.getGameFEN() }
+                historyMode={ this.state.historyMode }
+            />
           </div>
 
           <div className="col-sm-3">
