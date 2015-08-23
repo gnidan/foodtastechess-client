@@ -47,7 +47,7 @@ var GameStore = Reflux.createStore({
     this.trigger({
       games: this.games,
       usergames: this.usergames,
-      loading: false
+      loading: loading
     });
   },
 
