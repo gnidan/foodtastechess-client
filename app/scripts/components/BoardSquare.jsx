@@ -14,47 +14,21 @@ class BoardSquare extends React.Component {
 
     switch (this.props.piece) {
       // White Pieces
-      case 'K':
-        img += 'wK.svg';
-        break;
-      case 'Q':
-        img += 'wQ.svg';
-        break;
-      case 'R':
-        img += 'wR.svg';
-        break;
-      case 'B':
-        img += 'wB.svg';
-        break;
-      case 'N':
-        img += 'wN.svg';
-        break;
-      case 'P':
-        img += 'wP.svg';
-        break;
+      case 'K': img += 'wK.svg'; break;
+      case 'Q': img += 'wQ.svg'; break;
+      case 'R': img += 'wR.svg'; break;
+      case 'B': img += 'wB.svg'; break;
+      case 'N': img += 'wN.svg'; break;
+      case 'P': img += 'wP.svg'; break;
       // Black Pieces
-      case 'k':
-        img += 'bK.svg';
-        break;
-      case 'q':
-        img += 'bQ.svg';
-        break;
-      case 'r':
-        img += 'bR.svg';
-        break;
-      case 'b':
-        img += 'bB.svg';
-        break;
-      case 'n':
-        img += 'bN.svg';
-        break;
-      case 'p':
-        img += 'bP.svg';
-        break;
+      case 'k': img += 'bK.svg'; break;
+      case 'q': img += 'bQ.svg'; break;
+      case 'r': img += 'bR.svg'; break;
+      case 'b': img += 'bB.svg'; break;
+      case 'n': img += 'bN.svg'; break;
+      case 'p': img += 'bP.svg'; break;
 
-      default:
-        return '';
-        break;
+      default: return ''; break;
     }
 
     return (
