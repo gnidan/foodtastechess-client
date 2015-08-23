@@ -14,7 +14,6 @@ class GameChessBoard extends React.Component {
     var rank = Math.floor(pos / 8);
     var black = (rank + file) % 2;
     var position = "ABCDEFGH"[file] + (8 - rank);
-    console.log(position);
     return (
       <div key={position} id={position} className="square_wrapper">
         <BoardSquare black={black} piece={piece}>
