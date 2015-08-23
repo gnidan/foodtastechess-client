@@ -12,7 +12,15 @@ class GameList extends React.Component {
   }
 
   games() {
-    return this.props.games ? this.props.games.map(game => <GameInstance key={game} />) : "You don't have any active games!";
+      if (this.props.usergames) {
+          return this.props.usergames.map(game =>
+                  <GameInstance
+                    key={game}
+                    game={this.props.games[game]} />
+                  );
+      } else {
+          return "You don't have any active games!";
+      }
   }
 
   render() {

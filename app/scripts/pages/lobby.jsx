@@ -3,30 +3,35 @@ import $ from 'jquery';
 import GameList from '../components/GameList.jsx';
 
 import LobbyActions from '../actions/LobbyActions';
-import LobbyStore from '../stores/LobbyStore';
+import GameActions from '../actions/GameActions';
 
 class Lobby extends React.Component {
 
-  validate() {
+  componentWillMount() {
+      LobbyActions.checkLogin();
+  }
 
-    var redirect = '/auth/login?redirect=' + encodeURIComponent(window.location);
-
-    $.ajax({
-      type: 'GET',
-      url: '/auth/me',
-      statusCode: {
-        401: function() { window.location = redirect; }
-      }
-    });
-
+  componentDidMount() {
+      GameActions.loadGames();
   }
 
   render() {
-    //this.validate();
+    var loading;
+    var usergames;
+    var games;
+    if (this.props.games === undefined) {
+        loading = false;
+        usergames = [];
+        games = {};
+    } else {
+        loading = this.props.games.loading;
+        usergames = this.props.games.usergames;
+        games = this.props.games.games;
+    }
 
     return (
         <div>
-          <GameList />
+          <GameList loading={loading} usergames={usergames} games={games} />
         </div>
     );
   }
