@@ -5,36 +5,33 @@ import GameStore from '../stores/GameStore';
 class GameHistory extends React.Component {
   constructor() {
     super();
-    this.state = {
-      history: GameStore.getGameHistory()
-    };
   }
 
   historyTable() {
-    if (this.state.history.length <= 1) {
+    if (this.props.history.length <= 1) {
       return '';
     }
     var table = [];
     var i;
-    for (i = 1; i < this.state.history.length - 1; i += 2) {
+    for (i = 1; i < this.props.history.length - 1; i += 2) {
       var row = (
           <tr key={(i + 1) / 2}>
             <td>
               {(i + 1) / 2}.
             </td>
-            < GameNavTurn move={ this.state.history[i].Move } />
-            < GameNavTurn move={ this.state.history[i + 1].Move } />
+            < GameNavTurn move={ this.props.history[i].Move } />
+            < GameNavTurn move={ this.props.history[i + 1].Move } />
           </tr>
           );
       table.push(row);
     }
-    if (i === this.state.history.length - 1) {
+    if (i === this.props.history.length - 1) {
       var row = (
           <tr key={(i + 1) / 2}>
             <td>
               {(i + 1) / 2}.
             </td>
-            < GameNavTurn move={ this.state.history[i].Move } />
+            < GameNavTurn move={ this.props.history[i].Move } />
             < GameNavTurn move='' />
           </tr>
           );
