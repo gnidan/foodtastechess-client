@@ -40,9 +40,7 @@ class GameHistory extends React.Component {
             <td>
               { this.state.history[i].Move.replace('-','') }
             </td>
-            <td>
-              ...
-            </td>
+            <td></td>
           </tr>
           );
       table.push(row);
