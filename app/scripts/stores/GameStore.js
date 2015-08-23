@@ -23,15 +23,22 @@ var GameStore = Reflux.createStore({
 
   onLoadGamesSuccess(games) {
     this.usergames = games;
+    var outstanding = games.length;
+    var loading = true;
 
     _.each(games, _.bind(function(game) {
         $.get(config.apiRoot + '/api/games/' + game)
             .then(_.bind(function(gameInfo) {
+                outstanding--;
+                if (outstanding === 0) {
+                    loading = false;
+                }
+
                 this.games[game] = gameInfo;
 
                 this.trigger({
                     usergames: this.usergames,
-                    loading: false,
+                    loading: loading,
                     games: this.games
                 })
             }, this));
