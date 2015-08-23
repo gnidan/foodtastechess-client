@@ -1,39 +1,54 @@
 import Reflux from 'reflux';
+import $ from 'jquery';
+import _ from 'underscore';
+
+import config from '../../config'
 import GameActions from '../actions/GameActions';
 
 var GameStore = Reflux.createStore({
-
+  listenables: [GameActions],
   init() {
+    this.usergames = [];
+    this.games = {};
+  },
+  onLoadGames() {
+    this.trigger({
+      loading: true
+    });
 
-  getGameFEN() {
-    return this.fen;
+    $.get(config.apiRoot + '/api/games')
+        .then(_.bind(this.onLoadGamesSuccess, this))
+        .fail(_.bind(this.onLoadGamesError, this));
   },
-  getActivePlayer() {
-    return this.fen.split(' ')[1] === 'w' ? "White" : "Black";
+
+  onLoadGamesSuccess(games) {
+    this.usergames = games;
+
+    _.each(games, _.bind(function(game) {
+        $.get(config.apiRoot + '/api/games/' + game)
+            .then(_.bind(function(gameInfo) {
+                this.games[game] = gameInfo;
+
+                this.trigger({
+                    usergames: this.usergames,
+                    loading: false,
+                    games: this.games
+                })
+            }, this));
+    }, this));
+
+    this.trigger({
+      games: this.games,
+      usergames: this.usergames,
+      loading: false
+    });
   },
-  getAllValidMoves() {
-    return this.valid_moves;
-  },
-  getValidMoves(pos) {
-    var valid = [];
-    for (var move in this.valid_moves) {
-      var to_from = this.valid_moves[move].Move.substr(1).replace('x','-').split('-');
-      if (to_from[0] === pos) {
-        valid.push(to_from[1]);
-      }
-      else if (to_from[0] === 'O' && pos[0] === 'e') {
-        if (to_from.length === 2) {
-          valid.push(this.getActivePlayer() === "White" ? "g1" : "g8");
-        }
-        else if (to_from.length === 3) {
-          valid.push(this.getActivePlayer() === "White" ? "c1" : "c8");
-        }
-      }
-    }
-    return valid;
-  },
-  getGameHistory() {
-    return this.history;
+
+  onLoadGamesError(error) {
+    this.trigger({
+      error: error,
+      loading: false
+    });
   }
 });
 
