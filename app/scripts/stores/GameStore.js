@@ -21,6 +21,14 @@ var GameStore = Reflux.createStore({
       if (to_from[0] === pos) {
         valid.push(to_from[1]);
       }
+      else if (to_from[0] === 'O' && pos[0] === 'e') {
+        if (to_from.length === 2) {
+          valid.push(this.getActivePlayer() === "White" ? "g1" : "g8");
+        }
+        else if (to_from.length === 3) {
+          valid.push(this.getActivePlayer() === "White" ? "c1" : "c8");
+        }
+      }
     }
     return valid;
   },
