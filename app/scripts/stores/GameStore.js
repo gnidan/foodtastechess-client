@@ -10,9 +10,16 @@ var GameStore = Reflux.createStore({
   init() {
     this.usergames = [];
     this.games = {};
+    this.trigger({
+      games: this.games,
+      usergames: this.usergames,
+      loading: false
+    });
   },
   onLoadGames() {
     this.trigger({
+      games: this.games,
+      usergames: this.usergames,
       loading: true
     });
 
