@@ -10,7 +10,7 @@ import NotFound from './pages/notFound.jsx';
 
 var routes = (
   <Route name="app" path="/" handler={ App }>
-    <Route name="game" handler={ Game } />
+    <Route name="game" path="/game/:id" handler={ Game } />
     <Route name="lobby" handler={ Lobby } />
     <DefaultRoute handler={ Lobby } />
     <NotFoundRoute handler={ NotFound } />
