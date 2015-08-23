@@ -1,11 +1,34 @@
 import React from 'react';
 import BoardSquare from './BoardSquare.jsx';
+import GameStore from '../stores/GameStore';
 
 class GameChessBoard extends React.Component {
   constructor(props) {
     super(props);
+    this.squareClickHandler = this.squareClickHandler.bind(this);
     this.state = {
-      fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+      fen: GameStore.getGameFEN(),
+      history_mode: false,
+      active_square: null,
+      valid_moves: []
+    }
+  }
+
+  squareClickHandler(square) {
+    if (this.state.active_square === square) {
+      this.state.active_square = null;
+      return false;
+    }
+    else if (square in this.state.valid_moves) {
+      console.log("Yo, I'd be moving now");
+      return false;
+    }
+    else {
+      if (this.state.active_square) {
+        this.state.active_square.deactivate();
+      }
+      this.state.active_square = square;
+      return true;
     }
   }
 
@@ -13,10 +36,17 @@ class GameChessBoard extends React.Component {
     var file = pos % 8;
     var rank = Math.floor(pos / 8);
     var black = (rank + file) % 2;
-    var position = "ABCDEFGH"[file] + (8 - rank);
+    var position = "abcdefgh"[file] + (8 - rank);
     return (
-      <div key={position} id={position} className="square_wrapper">
-        <BoardSquare black={black} piece={piece}>
+      <div className="square_wrapper"
+           key={position}
+           id={position}
+           >
+        <BoardSquare active={false}
+                     pos={position}
+                     black={black}
+                     piece={piece}
+                     clickHandler={this.squareClickHandler}>
         </BoardSquare>
       </div>
     );
@@ -34,7 +64,7 @@ class GameChessBoard extends React.Component {
       else {
         var blank = parseInt(fen[i]);
         for (var j = 0; j < blank; j++, pos++) {
-          squares.push(this.render_square(pos, '-'));
+          squares.push(this.render_square(pos, null));
         }
       }
     }

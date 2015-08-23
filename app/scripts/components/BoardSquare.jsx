@@ -1,12 +1,9 @@
 import React from 'react';
+import GameStore from '../stores/GameStore';
 
 class BoardSquare extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      color: props.black,
-      piece: props.piece
-    };
   }
 
   render_piece() {
@@ -34,14 +31,16 @@ class BoardSquare extends React.Component {
     return (
             <img style={{maxHeight: "100%",
                         maxWidth: "100%"}}
-                src={img} />
+                 src={img} />
            );
   }
 
   render() {
     return (
-      <div style={{backgroundColor: this.state.color ? "#2b5005":"#f1f1f1"}}
-           className="boardsquare">
+      <div style={{backgroundColor: this.props.black ? "#2b5005" : "#f1f1f1",
+                   border: this.props.active ? "3px solid red" : "0"}}
+           className="boardsquare"
+           key={this.props.pos}>
         <div className="square_align">
           <div className="inner_square">
             { this.render_piece() }
