@@ -1,4 +1,5 @@
 import React from 'react';
+import GameNavTurn from './GameNavTurn.jsx';
 import GameStore from '../stores/GameStore';
 
 class GameHistory extends React.Component {
@@ -21,12 +22,8 @@ class GameHistory extends React.Component {
             <td>
               {(i + 1) / 2}.
             </td>
-            <td>
-              { this.state.history[i].Move.replace('-','') }
-            </td>
-            <td>
-              { this.state.history[i + 1].Move.replace('-','') }
-            </td>
+            < GameNavTurn move={ this.state.history[i].Move } />
+            < GameNavTurn move={ this.state.history[i + 1].Move } />
           </tr>
           );
       table.push(row);
@@ -37,10 +34,8 @@ class GameHistory extends React.Component {
             <td>
               {(i + 1) / 2}.
             </td>
-            <td>
-              { this.state.history[i].Move.replace('-','') }
-            </td>
-            <td></td>
+            < GameNavTurn move={ this.state.history[i].Move } />
+            < GameNavTurn move='' />
           </tr>
           );
       table.push(row);
