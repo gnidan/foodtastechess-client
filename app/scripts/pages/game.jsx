@@ -30,6 +30,7 @@ class Game extends React.Component {
   }
 
   render() {
+    console.debug(this.props);
 
     return (
       <div className="panel panel-default">
