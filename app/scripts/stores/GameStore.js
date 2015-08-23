@@ -22,7 +22,6 @@ var GameStore = Reflux.createStore({
   },
 
   onLoadGamesSuccess(games) {
-    console.debug("load games success: ", games)
     this.usergames = games;
 
     _.each(games, _.bind(function(game) {

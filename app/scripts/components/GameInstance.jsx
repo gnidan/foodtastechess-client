@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 
 class GameInstance extends React.Component {
   render() {
-    console.debug(this.props);
     var status = "panel";
     var status_text = null;
 
