@@ -1,11 +1,14 @@
 import React from 'react';
 import {Modal, ButtonGroup, Button} from 'react-bootstrap';
 
+import GameActions from '../actions/GameActions';
+
 class NewGameModal extends React.Component {
   constructor(props) {
     super(props);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
+    this.click = this.click.bind(this);
     this.state = {
       showModal: false,
       color: 'random'
@@ -14,6 +17,11 @@ class NewGameModal extends React.Component {
 
   close() {
     this.setState({ showModal: false });
+  }
+
+  click() {
+      GameActions.createGame(this.state.color);
+      this.close();
   }
 
   open() {
@@ -62,7 +70,7 @@ class NewGameModal extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
-            <Button bsStyle='success'>
+            <Button onClick={this.click} bsStyle='success'>
               Create Game
             </Button>
           </Modal.Footer>

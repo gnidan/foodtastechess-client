@@ -1,9 +1,8 @@
 import Reflux from 'reflux';
 
 var GameActions = Reflux.createActions([
-    'loadGames',
-    'loadGamesSuccess',
-    'loadGamesError'
+    'createGame',
+    'loadGames'
 ]);
 
 export default GameActions;

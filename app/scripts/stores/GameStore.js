@@ -23,15 +23,22 @@ var GameStore = Reflux.createStore({
 
   onLoadGamesSuccess(games) {
     this.usergames = games;
+    var outstanding = games.length;
+    var loading = outstanding > 0;
 
     _.each(games, _.bind(function(game) {
         $.get(config.apiRoot + '/api/games/' + game)
             .then(_.bind(function(gameInfo) {
+                outstanding--;
+                if (outstanding === 0) {
+                    loading = false;
+                }
+
                 this.games[game] = gameInfo;
 
                 this.trigger({
                     usergames: this.usergames,
-                    loading: false,
+                    loading: loading,
                     games: this.games
                 })
             }, this));
@@ -40,7 +47,7 @@ var GameStore = Reflux.createStore({
     this.trigger({
       games: this.games,
       usergames: this.usergames,
-      loading: false
+      loading: loading
     });
   },
 
@@ -49,7 +56,20 @@ var GameStore = Reflux.createStore({
       error: error,
       loading: false
     });
-  }
+  },
+
+  onCreateGame(color) {
+      var data = {};
+      if (color == "white" || color == "black") {
+          data.color = color
+      }
+      $.ajax(config.apiRoot + "/api/games/create", {
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          type: 'POST'
+      }).then(_.bind(this.onLoadGames, this));
+  },
+
 });
 
 export default GameStore;
