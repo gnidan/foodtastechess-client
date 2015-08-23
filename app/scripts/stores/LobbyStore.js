@@ -1,32 +1,24 @@
 import Reflux from 'reflux';
+import $ from 'jquery';
+import _ from 'underscore';
+
+import config from '../../config'
 import LobbyActions from '../actions/LobbyActions';
 
 var LobbyStore = Reflux.createStore({
+  listenables: [LobbyActions],
+
   init() {
-    this.games = [];
   },
 
-  loadGames() {
-    this.trigger({
-      loading: true
-    });
+  onCheckLogin() {
+      $.get(config.apiRoot + '/auth/me')
+        .fail(function() {
+            var redirect = encodeURIComponent(window.location);
+            window.location = config.apiRoot + '/auth/login?redirect=' + redirect;
+        });
   },
 
-  loadGamesSuccess(games) {
-    this.games = games;
-
-    this.trigger({
-      items: this.items,
-      loading: false
-    });
-  },
-
-  loadGamesError(error) {
-    this.trigger({
-      error: error,
-      loading: false
-    });
-  }
 
 });
 

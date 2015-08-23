@@ -44,7 +44,8 @@
     "react": "^0.13.1",
     "react-bootstrap": "^0.24.4",
     "react-router": "^0.13.2",
-    "reflux": "^0.2.7"
+    "reflux": "^0.2.7",
+    "underscore": "^1.8.3"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
