@@ -49,7 +49,20 @@ var GameStore = Reflux.createStore({
       error: error,
       loading: false
     });
-  }
+  },
+
+  onCreateGame(color) {
+      var data = {};
+      if (color == "white" || color == "black") {
+          data.color = color
+      }
+      $.ajax(config.apiRoot + "/api/games/create", {
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          type: 'POST'
+      }).then(_.bind(this.onLoadGames, this));
+  },
+
 });
 
 export default GameStore;
