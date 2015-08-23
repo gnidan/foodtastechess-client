@@ -17,9 +17,9 @@ var GameStore = Reflux.createStore({
   getValidMoves(pos) {
     var valid = [];
     for (var move in this.valid_moves) {
-      var movement = this.valid_moves[move].Move.substr(1).split('-');
-      if (movement[0] === pos) {
-        valid.push(movement[1]);
+      var to_from = this.valid_moves[move].Move.substr(1).replace('x','-').split('-');
+      if (to_from[0] === pos) {
+        valid.push(to_from[1]);
       }
     }
     return valid;
