@@ -3,11 +3,8 @@ import GameNavigation from './GameNavigation.jsx';
 import GameStore from '../stores/GameStore';
 
 class GameSidebar extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      active_player: GameStore.getActivePlayer()
-    };
+  constructor(props) {
+    super(props);
   }
 
   render() {
@@ -15,7 +12,7 @@ class GameSidebar extends React.Component {
       <div className="panel panel-info">
         <div className="panel-heading" style={{textAlign: 'center'}}>
           <h3>
-            { this.state.active_player } to play
+            { this.props.activeColor } to play
           </h3>
         </div>
         <div className="panel-body">

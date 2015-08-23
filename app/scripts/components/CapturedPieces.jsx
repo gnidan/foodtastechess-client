@@ -2,18 +2,15 @@ import React from 'react';
 import GameStore from '../stores/GameStore';
 
 class CapturedPieces extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      pieces: GameStore.getGameFEN().split(' ')[0].replace(/[\d\/]/g,'')
-    };
+  constructor(props) {
+    super(props);
   }
 
   capturedPieces(pieces) {
     var captures = '';
     for (var p in pieces) {
       var p_rgx = new RegExp(p, 'g');
-      var missing = pieces[p].n - (this.state.pieces.length - this.state.pieces.replace(p_rgx,'').length);
+      var missing = pieces[p].n - (this.props.pieces.length - this.props.pieces.replace(p_rgx,'').length);
       captures += Array(missing + 1).join(pieces[p].ch);
     }
     return captures;
@@ -41,7 +38,7 @@ class CapturedPieces extends React.Component {
         <div className="panel-body" style={{height: '300px',
                                             fontSize: 'x-large'}}>
         { this.capturedPieces(w_pieces) }
-        { this.state.pieces.length === 32 ? '' : <hr /> }
+        { this.props.pieces.length === 32 ? '' : <hr /> }
         { this.capturedPieces(b_pieces) }
         </div>
       </div>

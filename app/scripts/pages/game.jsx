@@ -17,12 +17,19 @@ var Game = React.createClass({
     };
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     GameActions.loadGames();
   },
 
   render: function() {
-    console.debug(this.props);
+    var gameID = this.props.params.id;
+
+    if (this.props.games.loading || ! this.props.games.games[gameID]) {
+      return ( <h1>Loading...</h1> );
+    }
+
+    var gameInfo = this.props.games.games[gameID].GameInfo;
+    console.log(gameInfo);
 
     return (
       <div className="panel panel-default">
@@ -34,7 +41,7 @@ var Game = React.createClass({
         <div className="panel-body">
 
           <div className="col-sm-3">
-            <CapturedPieces />
+            <CapturedPieces pieces={gameInfo.BoardState.split(' ')[0].replace(/[\d\/]/g,'')}/>
             <hr />
             <GameOfferDraw />
             <br />
@@ -43,13 +50,14 @@ var Game = React.createClass({
 
           <div className="col-sm-6">
             <GameChessBoard
-                fen={ GameStore.getGameFEN() }
+                fen={ gameInfo.BoardState }
                 historyMode={ this.state.historyMode }
             />
           </div>
 
           <div className="col-sm-3">
-            <GameSidebar />
+            <GameSidebar
+                activePlayer={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }/>
           </div>
 
         </div>
