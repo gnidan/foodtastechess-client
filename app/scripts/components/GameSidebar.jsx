@@ -6,13 +6,8 @@ class GameSidebar extends React.Component {
   constructor() {
     super();
     this.state = {
-      fen: GameStore.getGameFEN()
+      active_player: GameStore.getActivePlayer()
     };
-  }
-
-  activePlayer() {
-    var active = this.state.fen.split(' ')[1];
-    return active === 'w' ? "White to play" : "Black to play";
   }
 
   render() {
@@ -20,7 +15,7 @@ class GameSidebar extends React.Component {
       <div className="panel panel-info">
         <div className="panel-heading" style={{textAlign: 'center'}}>
           <h3>
-            { this.activePlayer() }
+            { this.state.active_player } to play
           </h3>
         </div>
         <div className="panel-body">
