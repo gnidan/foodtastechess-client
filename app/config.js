@@ -1,5 +1,5 @@
 var config = {
-    apiRoot: 'http://local.drama9.com:8181'
+    apiRoot: 'http://doneit.cs.drexel.edu'
 
 }
 
