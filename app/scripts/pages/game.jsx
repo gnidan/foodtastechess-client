@@ -22,6 +22,7 @@ var Game = React.createClass({
   },
 
   render: function() {
+    console.debug(this.props);
 
     return (
       <div className="panel panel-default">
