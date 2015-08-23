@@ -6,8 +6,10 @@ class NewGameModal extends React.Component {
     super(props);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
-    this.state = { showModal: false
-                 , color: 'random'};
+    this.state = {
+      showModal: false,
+      color: 'random'
+    };
   }
 
   close() {
