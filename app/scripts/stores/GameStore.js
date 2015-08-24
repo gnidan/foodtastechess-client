@@ -9,7 +9,7 @@ var GameStore = Reflux.createStore({
   listenables: [GameActions],
   init() {
     this.state = {
-        usergames: {},
+        usergames: [],
         games: {},
         outstandingRequests: 0,
         loading: false

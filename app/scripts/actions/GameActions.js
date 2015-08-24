@@ -1,8 +1,8 @@
 import Reflux from 'reflux';
 
 var GameActions = Reflux.createActions([
-    'joinGame',
     'createGame',
+    'joinGame',
     'loadGames',
     'loadGame'
 ]);
