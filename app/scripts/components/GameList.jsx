@@ -8,7 +8,6 @@ class GameList extends React.Component {
   }
 
   games() {
-      console.debug(this.props);
       if (this.props.loading) {
           return "Loading";
       } else {
