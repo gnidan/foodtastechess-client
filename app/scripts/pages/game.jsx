@@ -60,9 +60,17 @@ var Game = React.createClass({
             <div className="well">
                 <dl>
                     <dt>White</dt>
-                    <dd>{gameInfo.White.Name}</dd>
+                    <dd>
+                        <img src={gameInfo.White.AvatarUrl} width={50} height={50} />
+                        <br />
+                        {gameInfo.White.Name}
+                    </dd>
                     <dt>Black</dt>
-                    <dd>{gameInfo.Black.Name}</dd>
+                    <dd>
+                        <img src={gameInfo.Black.AvatarUrl} width={50} height={50} />
+                        <br />
+                        {gameInfo.Black.Name}
+                    </dd>
                 </dl>
             </div>
             <CapturedPieces pieces={gameInfo.BoardState.split(' ')[0].replace(/[\d\/]/g,'')}/>
