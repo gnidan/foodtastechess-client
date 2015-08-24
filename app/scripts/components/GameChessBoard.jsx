@@ -4,17 +4,31 @@ import BoardSquare from './BoardSquare.jsx';
 import GameStore from '../stores/GameStore';
 import GameActions from '../actions/GameActions';
 
-function splitMove(move) {
-  return move.substr(1).replace('x','-').split('-');
-}
-
 class GameChessBoard extends React.Component {
   constructor(props) {
     super(props);
     this.squareClickHandler = this.squareClickHandler.bind(this);
+    this.splitMove = this.splitMove.bind(this);
     this.state = {
       activeSquare: null,
       validMoves: []
+    }
+  }
+
+  splitMove(move_index) {
+    var move = this.props.validMoves[m].Move;
+    var split = move.substr(1).replace('x','-').split('-');
+    if (split[0] === '0') {
+      var color = this.props.fen.split(' ')[1];
+      if (split.length === 2) {
+        return color === 'w' ? ['e1','g1'] : ['e8','g8'];
+      }
+      else {
+        return color === 'w' ? ['e1','c1'] : ['e8','c8'];
+      }
+    }
+    else {
+      return split;
     }
   }
 
@@ -28,7 +42,7 @@ class GameChessBoard extends React.Component {
     else if (_.contains(this.state.validMoves, square)) {
       var move = '';
       for (var m in this.props.validMoves) {
-        var split = splitMove(this.props.validMoves[m].Move);
+        var split = this.splitMove(m);
         if (split[0] === this.state.activeSquare
             && split[1] === square) {
           move = this.props.validMoves[m].Move;
@@ -43,7 +57,7 @@ class GameChessBoard extends React.Component {
     else {
       var validMoves = [];
       for (var m in this.props.validMoves) {
-        var to_from = splitMove(this.props.validMoves[m].Move);
+        var to_from = this.splitMove(m);
         if (to_from[0] === square ) {
           validMoves.push(to_from[1]);
         }
