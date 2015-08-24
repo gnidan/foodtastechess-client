@@ -1,5 +1,6 @@
 import React from 'react';
 import Reflux from 'reflux';
+import _ from 'underscore';
 
 import CapturedPieces from '../components/CapturedPieces.jsx';
 import GameChessBoard from '../components/GameChessBoard.jsx';
@@ -22,11 +23,20 @@ var Game = React.createClass({
     GameActions.loadGame(gameID);
   },
 
+  componentDidMount: function() {
+    this.loaderInterval = setInterval(_.bind(function() {
+      GameActions.loadGame(this.props.params.id);
+    }, this), 5000);
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.loaderInterval);
+  },
+
   render: function() {
     var gameID = this.props.params.id;
 
-    if (this.props.games.loading
-        || ! this.props.games.games[gameID]
+    if (! this.props.games.games[gameID]
         || ! this.props.games.gameHistories[gameID]
         || ! this.props.games.gameValidMoves[gameID]) {
       return ( <h1>Loading...</h1> );
