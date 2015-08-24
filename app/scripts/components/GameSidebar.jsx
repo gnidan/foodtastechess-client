@@ -8,7 +8,6 @@ class GameSidebar extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="panel panel-info">
         <div className="panel-heading" style={{textAlign: 'center'}}>
