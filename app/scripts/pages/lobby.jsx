@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import _ from 'underscore';
 import GameList from '../components/GameList.jsx';
 
 import LobbyActions from '../actions/LobbyActions';
@@ -17,11 +18,11 @@ class Lobby extends React.Component {
     this.loaderInterval = setInterval(_.bind(function() {
       GameActions.loadGames();
     }, this), 5000);
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     clearInterval(this.loaderInterval);
-  },
+  }
 
   render() {
     var loading;
