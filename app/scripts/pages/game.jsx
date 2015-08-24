@@ -46,7 +46,6 @@ var Game = React.createClass({
     var gameHistory = this.props.games.gameHistories[gameID];
     var gameValidMoves = this.props.games.gameValidMoves[gameID];
 
-      console.log(this.state.showTurn);
     return (
       <div className="panel panel-default">
 
