@@ -11,7 +11,6 @@ class GameNavigation extends React.Component {
   render() {
     return (
       <div>
-        <GameNavBar />
         <GameHistory history={ this.props.history }/>
       </div>
     );
