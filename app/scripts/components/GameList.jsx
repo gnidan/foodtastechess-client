@@ -25,7 +25,7 @@ class GameList extends React.Component {
       <div className="panel panel-default">
         <div className="panel-heading">
           <div className="page-header">
-            <h1>FoodTaste Chess v0.0</h1>
+            <h1>FoodTaste Chess v1.0</h1>
           </div>
           <NewGameModal />
         </div>

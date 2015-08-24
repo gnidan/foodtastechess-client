@@ -51,7 +51,7 @@ var Game = React.createClass({
       <div className="panel panel-default">
 
         <div className="panel-heading">
-          <strong>FoodTaste Chess v0.0</strong>
+          <strong>FoodTaste Chess v1.0</strong>
         </div>
 
         <div className="panel-body">
