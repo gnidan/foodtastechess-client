@@ -95,7 +95,7 @@ var GameStore = Reflux.createStore({
       })
         .then(_.bind(this.onLoadGames, this))
         .fail(_.bind(function(error) {
-            this.state.error = error;
+            this.state.error = error.responseJSON.error;
             this.trigger(this.state);
         }, this));
   },
