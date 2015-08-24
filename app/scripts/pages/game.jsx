@@ -45,6 +45,7 @@ var Game = React.createClass({
     var gameInfo = this.props.games.games[gameID].GameInfo;
     var gameHistory = this.props.games.gameHistories[gameID];
     var gameValidMoves = this.props.games.gameValidMoves[gameID];
+    var userActive = this.props.games.games[gameID].UserActive;
 
     return (
       <div className="panel panel-default">
@@ -70,13 +71,15 @@ var Game = React.createClass({
                 fen={ gameInfo.BoardState }
                 history={ gameHistory }
                 historyMode={ this.state.historyMode }
+                userActive={ userActive }
             />
           </div>
 
           <div className="col-sm-3">
             <GameSidebar
                 history={ gameHistory }
-                activeColor={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }/>
+                activeColor={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }
+                userActive={ userActive } />
           </div>
 
         </div>

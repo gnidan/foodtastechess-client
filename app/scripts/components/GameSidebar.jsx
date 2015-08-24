@@ -12,8 +12,12 @@ class GameSidebar extends React.Component {
       <div className="panel panel-info">
         <div className="panel-heading" style={{textAlign: 'center'}}>
           <h3>
-            { this.props.activeColor } to play
+            { this.props.userActive ? "Your Turn" : "Opponent's turn" }
           </h3>
+          <br />
+          <strong>
+            { this.props.activeColor } to play
+          </strong>
         </div>
         <div className="panel-body">
           <div className="row-fluid">

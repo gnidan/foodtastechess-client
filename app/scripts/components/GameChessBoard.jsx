@@ -33,6 +33,9 @@ class GameChessBoard extends React.Component {
   }
 
   squareClickHandler(square) {
+    if (! this.props.userActive ) {
+      return;
+    }
     if (this.state.activeSquare === square) {
       this.setState({
           activeSquare: null,
