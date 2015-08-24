@@ -55,6 +55,8 @@ var Game = React.createClass({
 
           <div className="col-sm-6">
             <GameChessBoard
+                gameID={ gameID }
+                validMoves= { gameValidMoves }
                 fen={ gameInfo.BoardState }
                 history={ gameHistory }
                 historyMode={ this.state.historyMode }

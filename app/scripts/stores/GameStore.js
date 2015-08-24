@@ -98,6 +98,15 @@ var GameStore = Reflux.createStore({
             this.state.error = error;
             this.trigger(this.state);
         }, this));
+  },
+
+  onMakeMove(gameId, move) {
+    $.ajax(config.apiRoot + "/api/games/" + gameId + "/move", {
+        data: JSON.stringify({move: move}),
+        contentType: 'application/json',
+        type: 'POST'
+    })
+      .then(_.bind(function() { this.onLoadGame(gameId) }, this));
   }
 
 

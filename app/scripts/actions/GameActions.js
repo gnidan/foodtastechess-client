@@ -4,7 +4,8 @@ var GameActions = Reflux.createActions([
     'createGame',
     'joinGame',
     'loadGames',
-    'loadGame'
+    'loadGame',
+    'makeMove'
 ]);
 
 export default GameActions;
