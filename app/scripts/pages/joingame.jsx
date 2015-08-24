@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import _ from 'underscore';
 import GameList from '../components/GameList.jsx';
 import { Navigation } from 'react-router';
 
@@ -12,22 +13,35 @@ var JoinGame = React.createClass({
 
   componentWillMount: function() {
     LobbyActions.checkLogin();
+    GameActions.loadGames();
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    if (_.contains(nextProps.games.usergames, nextProps.params.id)) {
-      this.transitionTo("game", {id: nextProps.params.id});
+  componentDidMount: function() {
+    if (_.contains(this.props.games.usergames, parseInt(this.props.params.id))) {
+      this.transitionTo("game", {id: this.props.params.id});
     } else {
-      GameActions.joinGame(nextProps.params.id);
+      GameActions.joinGame(this.props.params.id);
+    }
+  },
+
+  componentDidUpdate: function() {
+    if (_.contains(this.props.games.usergames, parseInt(this.props.params.id))) {
+      this.transitionTo("game", {id: this.props.params.id});
     }
   },
 
   render: function() {
-    console.debug(this.props.games.error);
+    var message;
+
+    if (this.props.games.error) {
+        message = this.props.games.error;
+    } else {
+        message = "Joining game...";
+    }
 
     return (
         <div>
-          Joining...
+        {message}
         </div>
     );
   }
