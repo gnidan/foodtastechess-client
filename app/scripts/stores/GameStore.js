@@ -48,6 +48,7 @@ var GameStore = Reflux.createStore({
   },
 
   onLoadGame(gameId) {
+    this.state.incrementOutstandingRequests();
     $.get(config.apiRoot + '/api/games/' + gameId)
         .then(_.bind(function(gameInfo) {
             this.state.games[gameId] = gameInfo;
@@ -70,6 +71,8 @@ var GameStore = Reflux.createStore({
           type: 'POST'
       }).then(_.bind(this.onLoadGames, this));
   },
+
+
 
 });
 
