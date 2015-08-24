@@ -14,7 +14,8 @@ var GameStore = Reflux.createStore({
         gameHistories: {},
         gameValidMoves: {},
         outstandingRequests: 0,
-        loading: false
+        loading: false,
+        error: null
     };
 
     this.trigger(this.state);
@@ -91,7 +92,12 @@ var GameStore = Reflux.createStore({
           data: JSON.stringify({}),
           contentType: 'application/json',
           type: 'POST'
-      }).then(_.bind(this.onLoadGames, this));
+      })
+        .then(_.bind(this.onLoadGames, this))
+        .fail(_.bind(function(error) {
+            this.state.error = error;
+            this.trigger(this.state);
+        }, this));
   }
 
 
