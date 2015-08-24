@@ -7,19 +7,16 @@ class GameList extends React.Component {
     super();
   }
 
-  loading() {
-    return this.props.loading ? <div className="loading-label">Loading...</div> : '';
-  }
-
   games() {
-      if (this.props.usergames) {
+      console.debug(this.props);
+      if (this.props.loading) {
+          return "Loading";
+      } else {
           return this.props.usergames.map(game =>
                   <GameInstance
                     key={game}
                     game={this.props.games[game]} />
                   );
-      } else {
-          return "You don't have any active games!";
       }
   }
 
@@ -34,7 +31,6 @@ class GameList extends React.Component {
           <NewGameModal />
         </div>
         <div className="panel-body">
-          { this.loading() }
           <div className="panel-group">
           { this.games() }
           </div>
