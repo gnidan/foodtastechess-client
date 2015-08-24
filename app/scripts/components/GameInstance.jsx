@@ -62,6 +62,10 @@ var GameInstance = React.createClass ({
     } else {
         status_text = "Not Your Turn";
     }
+
+    status_text += " (#" + this.props.game.GameInfo.Id + " " +
+        this.props.game.GameInfo.White.Name + " vs. " +
+        this.props.game.GameInfo.Black.Name + ")";
     return (
             <Button block onClick={this.onNavigate}>
                 {status_text}
