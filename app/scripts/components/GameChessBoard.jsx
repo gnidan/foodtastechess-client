@@ -1,32 +1,44 @@
 import React from 'react';
 import BoardSquare from './BoardSquare.jsx';
 import GameStore from '../stores/GameStore';
+import _ from 'underscore';
 
 class GameChessBoard extends React.Component {
   constructor(props) {
     super(props);
     this.squareClickHandler = this.squareClickHandler.bind(this);
     this.state = {
-      active_square: null,
-      valid_moves: []
+      activeSquare: null,
+      validMoves: []
     }
   }
 
   squareClickHandler(square) {
-    if (this.state.active_square === square) {
-      this.state.active_square = null;
-      return false;
+    if (this.state.activeSquare === square) {
+      this.setState({
+          activeSquare: null,
+          validMoves: []
+      });
     }
-    else if (square in this.state.valid_moves) {
+    else if (_.contains(this.state.validMoves, square)) {
+      this.setState({
+          activeSquare: null,
+          validMoves: []
+      });
       console.log("Yo, I'd be moving now");
-      return false;
     }
     else {
-      if (this.state.active_square) {
-        this.state.active_square.deactivate();
+      var validMoves = [];
+      for (var m in this.props.validMoves) {
+        var to_from = this.props.validMoves[m].Move.substr(1).split('-');
+        if (to_from[0] === square ) {
+          validMoves.push(to_from[1]);
+        }
       }
-      this.state.active_square = square;
-      return true;
+      this.setState({
+        activeSquare: square,
+        validMoves: validMoves
+      });
     }
   }
 
@@ -38,12 +50,12 @@ class GameChessBoard extends React.Component {
     return (
       <div className="square_wrapper"
            key={position}
-           id={position}
-           >
-        <BoardSquare active={false}
+           id={position}>
+        <BoardSquare active={ position === this.state.activeSquare }
                      pos={position}
                      black={black}
                      piece={piece}
+                     validMove={ _.contains(this.state.validMoves, position) }
                      clickHandler={this.squareClickHandler}>
         </BoardSquare>
       </div>

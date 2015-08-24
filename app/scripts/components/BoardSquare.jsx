@@ -3,6 +3,7 @@ import GameStore from '../stores/GameStore';
 
 class BoardSquare extends React.Component {
   constructor(props) {
+    this.clickHandler = this.clickHandler.bind(this);
     super(props);
   }
 
@@ -35,10 +36,27 @@ class BoardSquare extends React.Component {
            );
   }
 
+  clickHandler() {
+    this.props.clickHandler(this.props.pos);
+  }
+
+  border() {
+    if (this.props.active) {
+      return "3px solid red";
+    }
+    else if (this.props.validMove) {
+      return "2px solid orange";
+    }
+    else {
+      return '0';
+    }
+  }
+
   render() {
     return (
       <div style={{backgroundColor: this.props.black ? "#2b5005" : "#f1f1f1",
-                   border: this.props.active ? "3px solid red" : "0"}}
+                   border: this.border() }}
+           onClick={this.clickHandler}
            className="boardsquare"
            key={this.props.pos}>
         <div className="square_align">
