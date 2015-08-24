@@ -18,7 +18,8 @@ var Game = React.createClass({
   },
 
   componentWillMount: function() {
-    GameActions.loadGames();
+    var gameID = this.props.params.id;
+    GameActions.loadGame(gameID);
   },
 
   render: function() {

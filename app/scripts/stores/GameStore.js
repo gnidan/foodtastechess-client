@@ -8,68 +8,55 @@ import GameActions from '../actions/GameActions';
 var GameStore = Reflux.createStore({
   listenables: [GameActions],
   init() {
-    this.usergames = [];
-    this.games = {};
-    this.trigger({
-      games: this.games,
-      usergames: this.usergames,
-      loading: false
-    });
+    this.state = {
+        usergames: {},
+        games: {},
+        outstandingRequests: 0,
+        loading: false
+    };
+
+    this.trigger(this.state);
   },
   getInitialState() {
-    return {
-      games: this.games,
-      usergames: this.usergames,
-      loading: false
-    };
+    return this.state;
   },
   onLoadGames() {
-    this.trigger({
-      games: this.games,
-      usergames: this.usergames,
-      loading: true
-    });
-
+    this.incrementOutstandingRequests()
     $.get(config.apiRoot + '/api/games')
-        .then(_.bind(this.onLoadGamesSuccess, this))
-        .fail(_.bind(this.onLoadGamesError, this));
+        .fail(_.bind(this.onLoadGamesError, this))
+        .then(_.bind(function(games) {
+            this.state.usergames = games;
+
+            _.each(games, _.bind(this.onLoadGame, this));
+            this.decrementOutstandingRequests();
+        }, this));
   },
 
-  onLoadGamesSuccess(games) {
-    this.usergames = games;
-    var outstanding = games.length;
-    var loading = outstanding > 0;
+  incrementOutstandingRequests() {
+      this.state.outstandingRequests++;
+      this.state.loading = true;
+      this.trigger(this.state);
+  },
 
-    _.each(games, _.bind(function(game) {
-        $.get(config.apiRoot + '/api/games/' + game)
-            .then(_.bind(function(gameInfo) {
-                outstanding--;
-                if (outstanding === 0) {
-                    loading = false;
-                }
+  decrementOutstandingRequests() {
+      this.state.outstandingRequests--
+      if (this.state.outstandingRequests <= 0) {
+          this.state.outstandingRequests = 0;
+          this.state.loading = false;
+      }
+      this.trigger(this.state);
+  },
 
-                this.games[game] = gameInfo;
-
-                this.trigger({
-                    usergames: this.usergames,
-                    loading: loading,
-                    games: this.games
-                })
-            }, this));
-    }, this));
-
-    this.trigger({
-      games: this.games,
-      usergames: this.usergames,
-      loading: loading
-    });
+  onLoadGame(gameId) {
+    $.get(config.apiRoot + '/api/games/' + gameId)
+        .then(_.bind(function(gameInfo) {
+            this.state.games[gameId] = gameInfo;
+            this.decrementOutstandingRequests();
+        }, this));
   },
 
   onLoadGamesError(error) {
-    this.trigger({
-      error: error,
-      loading: false
-    });
+      this.decrementOutstandingRequests();
   },
 
   onCreateGame(color) {
