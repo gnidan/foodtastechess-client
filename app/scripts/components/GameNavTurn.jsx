@@ -8,7 +8,7 @@ class GameNavTurn extends React.Component {
   render() {
     return (
         <td style={{ fontWeight: this.props.active ? "bold" : "normal" }}>
-          { this.props.move.replace('-','') }
+          { this.props.move[0] === '0' ? this.props.move : this.props.move.replace('-','') }
         </td>
     );
   }
