@@ -25,12 +25,16 @@ var Game = React.createClass({
   render: function() {
     var gameID = this.props.params.id;
 
-    if (this.props.games.loading || ! this.props.games.games[gameID]) {
+    if (this.props.games.loading
+        || ! this.props.games.games[gameID]
+        || ! this.props.games.gameHistories[gameID]
+        || ! this.props.games.gameValidMoves[gameID]) {
       return ( <h1>Loading...</h1> );
     }
 
     var gameInfo = this.props.games.games[gameID].GameInfo;
-    console.log(gameInfo);
+    var gameHistory = this.props.games.gameHistories[gameID];
+    var gameValidMoves = this.props.games.gameValidMoves[gameID];
 
     return (
       <div className="panel panel-default">
