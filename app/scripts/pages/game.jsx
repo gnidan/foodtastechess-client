@@ -56,13 +56,15 @@ var Game = React.createClass({
           <div className="col-sm-6">
             <GameChessBoard
                 fen={ gameInfo.BoardState }
+                history={ gameHistory }
                 historyMode={ this.state.historyMode }
             />
           </div>
 
           <div className="col-sm-3">
             <GameSidebar
-                activePlayer={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }/>
+                history={ gameHistory }
+                activeColor={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }/>
           </div>
 
         </div>

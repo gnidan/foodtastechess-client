@@ -8,6 +8,7 @@ class GameSidebar extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="panel panel-info">
         <div className="panel-heading" style={{textAlign: 'center'}}>
@@ -17,7 +18,8 @@ class GameSidebar extends React.Component {
         </div>
         <div className="panel-body">
           <div className="row-fluid">
-            <GameNavigation />
+            <GameNavigation
+                history={ this.props.history } />
           </div>
         </div>
       </div>

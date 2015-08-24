@@ -4,11 +4,15 @@ import GameNavBar from './GameNavBar.jsx';
 import GameStore from '../stores/GameStore';
 
 class GameNavigation extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
         <GameNavBar />
-        <GameHistory history={ GameStore.getGameHistory() }/>
+        <GameHistory history={ this.props.history }/>
       </div>
     );
   }
