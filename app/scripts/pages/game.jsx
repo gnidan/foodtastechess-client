@@ -66,10 +66,6 @@ var Game = React.createClass({
                 </dl>
             </div>
             <CapturedPieces pieces={gameInfo.BoardState.split(' ')[0].replace(/[\d\/]/g,'')}/>
-            <hr />
-            <GameOfferDraw />
-            <br />
-            <GameConcede />
           </div>
 
           <div className="col-sm-6">
