@@ -17,7 +17,7 @@ class Lobby extends React.Component {
 
     this.loaderInterval = setInterval(_.bind(function() {
       GameActions.loadGames();
-    }, this), 5000);
+    }, this), 30000);
   }
 
   componentWillUnmount() {
