@@ -11,6 +11,8 @@ var GameStore = Reflux.createStore({
     this.state = {
         usergames: {},
         games: {},
+        gameHistories: {},
+        gameValidMoves: {},
         outstandingRequests: 0,
         loading: false
     };
@@ -52,6 +54,18 @@ var GameStore = Reflux.createStore({
     $.get(config.apiRoot + '/api/games/' + gameId)
         .then(_.bind(function(gameInfo) {
             this.state.games[gameId] = gameInfo;
+            this.decrementOutstandingRequests();
+        }, this));
+    this.state.incrementOutstandingRequests();
+    $.get(config.apiRoot + '/api/games/' + gameId + '/history')
+        .then(_.bind(function(history) {
+            this.state.gameHistories[gameId] = history;
+            this.decrementOutstandingRequests();
+        }, this));
+    this.state.incrementOutstandingRequests();
+    $.get(config.apiRoot + '/api/games/' + gameId + '/validmoves')
+        .then(_.bind(function(validMoves) {
+            this.state.gameValidMoves[gameId] = validMoves;
             this.decrementOutstandingRequests();
         }, this));
   },
