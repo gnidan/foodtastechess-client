@@ -48,7 +48,7 @@ var GameStore = Reflux.createStore({
   },
 
   onLoadGame(gameId) {
-    this.state.incrementOutstandingRequests();
+    this.incrementOutstandingRequests();
     $.get(config.apiRoot + '/api/games/' + gameId)
         .then(_.bind(function(gameInfo) {
             this.state.games[gameId] = gameInfo;
@@ -71,6 +71,14 @@ var GameStore = Reflux.createStore({
           type: 'POST'
       }).then(_.bind(this.onLoadGames, this));
   },
+
+  onJoinGame(gameId) {
+      $.ajax(config.apiRoot + "/api/games/" + gameId + "/join", {
+          data: JSON.stringify({}),
+          contentType: 'application/json',
+          type: 'POST'
+      }).then(_.bind(this.onLoadGames, this));
+  }
 
 
 
