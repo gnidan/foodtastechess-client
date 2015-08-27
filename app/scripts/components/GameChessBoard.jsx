@@ -48,7 +48,13 @@ class GameChessBoard extends React.Component {
     this.closePawnPromotion();
 
     if (promotionMove !== this.state.promotionMove) {
-      GameActions.makeMove(this.props.gameID, promotionMove);
+      for (var m in this.props.validMoves) {
+          var validMove = this.props.validMoves[m].Move;
+          if (promotionMove == validMove.substr(0, 8)) {
+              GameActions.makeMove(this.props.gameID, validMove);
+              return
+          }
+      }
     }
   }
 
