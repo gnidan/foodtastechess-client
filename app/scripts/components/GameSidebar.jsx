@@ -24,11 +24,15 @@ class GameSidebar extends React.Component {
   }
 
   render() {
-    var header, subheader;
+    var header, subheader, lastMove;
 
     if (!this.props.gameEnded) {
       header = this.props.userActive ? "Your Turn" : "Opponent's turn";
       subheader = this.props.activeColor + " to play";
+      lastMove = this.props.history[this.props.history.length - 1].Move;
+      if (lastMove.indexOf("+") > -1) {
+          subheader = subheader + ". CHECK!";
+      }
     }
     else {
       header = capitalizeFirstLetter(this.props.reason);
