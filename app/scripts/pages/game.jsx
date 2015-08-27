@@ -55,7 +55,6 @@ var Game = React.createClass({
         </div>
 
         <div className="panel-body">
-
           <div className="col-sm-3">
             <div className="well">
                 <dl>
