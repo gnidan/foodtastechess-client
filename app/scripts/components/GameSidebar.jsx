@@ -1,10 +1,26 @@
 import React from 'react';
 import GameNavigation from './GameNavigation.jsx';
 import GameStore from '../stores/GameStore';
+import {Modal, ButtonGroup, Button} from 'react-bootstrap';
+
+import GameActions from '../actions/GameActions'
 
 class GameSidebar extends React.Component {
   constructor(props) {
     super(props);
+    this.acceptOffer = this.acceptOffer.bind(this);
+    this.rejectOffer = this.rejectOffer.bind(this);
+    this.state = { showDrawOfferModal: this.props.drawOfferToUser };
+  }
+
+  acceptOffer() {
+      GameActions.acceptDraw(this.props.gameID);
+      this.setState({showDrawOfferModal: false});
+  }
+
+  rejectOffer() {
+      GameActions.rejectDraw(this.props.gameID);
+      this.setState({showDrawOfferModal: false});
   }
 
   render() {
@@ -16,7 +32,7 @@ class GameSidebar extends React.Component {
     }
     else {
       header = capitalizeFirstLetter(this.props.reason);
-      subheader = this.props.winner.length > 0 ?
+      subheader = this.props.winner ?
           capitalizeFirstLetter(this.props.winner) + " wins!" :
           "-";
     }
@@ -38,6 +54,23 @@ class GameSidebar extends React.Component {
                 history={ this.props.history } />
           </div>
         </div>
+
+        <Modal show={this.props.drawOfferToUser} onHide={this.closeOfferModal} backdrop="static">
+          <Modal.Header>
+            <Modal.Title>Draw Offer</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h1>Your opponent offers a draw. Do you accept?</h1>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button bsSize='large' bsStyle='warning' onClick={this.acceptOffer}>
+              <strong>Accept</strong>
+            </Button>
+            <Button bsSize='large' bsStyle='primary' onClick={this.rejectOffer}>
+              <strong>Reject</strong>
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }

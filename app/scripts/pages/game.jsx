@@ -48,11 +48,14 @@ var Game = React.createClass({
     var gameHistory = this.props.games.gameHistories[gameID];
     var gameValidMoves = this.props.games.gameValidMoves[gameID];
     var userActive = this.props.games.games[gameID].UserActive;
+    var drawOfferToUser = this.props.games.games[gameID].DrawOfferToUser;
 
     var sidebarOpts = {
+        gameID: gameID,
         history: gameHistory,
         activeColor: gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black",
-        userActive: userActive
+        userActive: userActive,
+        drawOfferToUser: drawOfferToUser
     }
 
     if (gameInfo.GameStatus == "ended") {
