@@ -57,7 +57,9 @@ var GameInstance = React.createClass ({
 
   renderStarted: function() {
     var status_text;
-    if (this.props.game.UserActive) {
+    if (this.props.game.GameInfo.GameStatus == "ended") {
+        status_text = "Game is over";
+    } else if (this.props.game.UserActive) {
         status_text = "Your Turn";
     } else {
         status_text = "Not Your Turn";
