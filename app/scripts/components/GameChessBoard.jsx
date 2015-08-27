@@ -24,6 +24,7 @@ class GameChessBoard extends React.Component {
   splitMove(move_index) {
     var move = this.props.validMoves[move_index].Move.split('.')[0];
     var split = move[0] === '0' ? move.split('-') : move.substr(1).replace('x','-').split('-');
+    split[1] = split[1].replace(/[#S+]$/, '');
     if (split[0] === '0') {
       var color = this.props.fen.split(' ')[1];
       if (split.length === 2) {

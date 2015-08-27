@@ -8,6 +8,7 @@ import GameConcede from '../components/GameConcede.jsx';
 import GameOfferDraw from '../components/GameOfferDraw.jsx';
 import GameSidebar from '../components/GameSidebar.jsx';
 
+import LobbyActions from '../actions/LobbyActions';
 import GameActions from '../actions/GameActions';
 import GameStore from '../stores/GameStore';
 
@@ -19,6 +20,7 @@ var Game = React.createClass({
   },
 
   componentWillMount: function() {
+    LobbyActions.checkLogin();
     var gameID = this.props.params.id;
     GameActions.loadGame(gameID);
   },
@@ -46,6 +48,21 @@ var Game = React.createClass({
     var gameHistory = this.props.games.gameHistories[gameID];
     var gameValidMoves = this.props.games.gameValidMoves[gameID];
     var userActive = this.props.games.games[gameID].UserActive;
+    var drawOfferToUser = this.props.games.games[gameID].DrawOfferToUser;
+
+    var sidebarOpts = {
+        gameID: gameID,
+        history: gameHistory,
+        activeColor: gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black",
+        userActive: userActive,
+        drawOfferToUser: drawOfferToUser
+    }
+
+    if (gameInfo.GameStatus == "ended") {
+        sidebarOpts.gameEnded = true;
+        sidebarOpts.reason = gameInfo.GameEndReason;
+        sidebarOpts.winner = gameInfo.Winner;
+    }
 
     return (
       <div className="panel panel-default">
@@ -73,6 +90,10 @@ var Game = React.createClass({
                 </dl>
             </div>
             <CapturedPieces pieces={gameInfo.BoardState.split(' ')[0].replace(/[\d\/]/g,'')}/>
+            <hr />
+            <GameOfferDraw gameID={ gameID } gameStatus={ gameInfo.GameStatus } drawOfferState={ gameInfo.DrawOfferState } />
+            <br />
+            <GameConcede gameID={ gameID } gameStatus={ gameInfo.GameStatus } />
           </div>
 
           <div className="col-sm-6">
@@ -87,10 +108,7 @@ var Game = React.createClass({
           </div>
 
           <div className="col-sm-3">
-            <GameSidebar
-                history={ gameHistory }
-                activeColor={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }
-                userActive={ userActive } />
+            <GameSidebar {...sidebarOpts} />
           </div>
 
         </div>
