@@ -8,15 +8,28 @@ class GameSidebar extends React.Component {
   }
 
   render() {
+    var header, subheader;
+
+    if (!this.props.gameEnded) {
+      header = this.props.userActive ? "Your Turn" : "Opponent's turn";
+      subheader = this.props.activeColor + " to play";
+    }
+    else {
+      header = capitalizeFirstLetter(this.props.reason);
+      subheader = this.props.winner.length > 0 ?
+          capitalizeFirstLetter(this.props.winner) + " wins!" :
+          "-";
+    }
+
     return (
       <div className="panel panel-info">
         <div className="panel-heading" style={{textAlign: 'center'}}>
           <h3>
-            { this.props.userActive ? "Your Turn" : "Opponent's turn" }
+            {header}
           </h3>
           <br />
           <strong>
-            { this.props.activeColor } to play
+            {subheader}
           </strong>
         </div>
         <div className="panel-body">
@@ -28,6 +41,10 @@ class GameSidebar extends React.Component {
       </div>
     );
   }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export default GameSidebar;

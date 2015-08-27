@@ -1,11 +1,14 @@
 import React from 'react';
 import {Modal, ButtonGroup, Button} from 'react-bootstrap';
 
+import GameActions from '../actions/GameActions'
+
 class GameOfferDraw extends React.Component {
   constructor(props) {
     super(props);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
+    this.offer = this.offer.bind(this);
     this.state = { showModal: false };
   }
 
@@ -17,7 +20,15 @@ class GameOfferDraw extends React.Component {
     this.setState({ showModal: true });
   }
 
+  offer() {
+      GameActions.offerDraw(this.props.gameID);
+      this.close();
+  }
+
   render() {
+    if (this.props.gameStatus !== "started") {
+        return this.renderNothing();
+    }
 
     return (
       <div>
@@ -37,7 +48,7 @@ class GameOfferDraw extends React.Component {
             <h1>Are you sure you want to offer your opponent a draw?</h1>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsSize='large' bsStyle='danger'>
+            <Button bsSize='large' bsStyle='danger' onClick={this.offer}>
               <strong>Yes</strong>
             </Button>
             <Button bsSize='large' bsStyle='primary' onClick={this.close}>
@@ -47,6 +58,12 @@ class GameOfferDraw extends React.Component {
         </Modal>
       </div>
     );
+  }
+
+  renderNothing() {
+    return (
+            <div />
+           );
   }
 }
 
