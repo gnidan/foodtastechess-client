@@ -1,16 +1,22 @@
 import React from 'react';
 import _ from 'underscore';
 import BoardSquare from './BoardSquare.jsx';
+import PawnPromotion from './PawnPromotion.jsx';
 import GameStore from '../stores/GameStore';
 import GameActions from '../actions/GameActions';
 
 class GameChessBoard extends React.Component {
   constructor(props) {
     super(props);
+    this.closePawnPromotion = this.closePawnPromotion.bind(this);
+    this.handlePawnPromotion = this.handlePawnPromotion.bind(this);
+    this.showPawnPromotion = this.showPawnPromotion.bind(this);
     this.squareClickHandler = this.squareClickHandler.bind(this);
     this.splitMove = this.splitMove.bind(this);
     this.state = {
+      showPawnPromotion: false,
       activeSquare: null,
+      promotionMove: '',
       validMoves: []
     }
   }
@@ -32,6 +38,26 @@ class GameChessBoard extends React.Component {
     }
   }
 
+  closePawnPromotion() {
+    this.setState({ showPawnPromotion: false });
+  }
+
+  handlePawnPromotion(piece) {
+    var promotionMove = this.state.promotionMove + piece;
+    this.closePawnPromotion();
+
+    if (promotionMove !== this.state.promotionMove) {
+      GameActions.makeMove(this.props.gameID, promotionMove);
+    }
+  }
+
+  showPawnPromotion(move) {
+    this.setState({
+      promotionMove: move,
+      showPawnPromotion: true
+    });
+  }
+
   squareClickHandler(square) {
     if (! this.props.userActive ) {
       return;
@@ -47,11 +73,16 @@ class GameChessBoard extends React.Component {
       for (var m in this.props.validMoves) {
         var split = this.splitMove(m);
         if (split[0] === this.state.activeSquare
-            && split[1] === square) {
+            && split[1].substr(0,2) === square) {
           move = this.props.validMoves[m].Move;
         }
       }
-      GameActions.makeMove(this.props.gameID, move);
+      if (move[6] === '=') {
+        this.showPawnPromotion(move.substr(0, 7));
+      }
+      else {
+        GameActions.makeMove(this.props.gameID, move);
+      }
       this.setState({
           activeSquare: null,
           validMoves: []
@@ -62,7 +93,7 @@ class GameChessBoard extends React.Component {
       for (var m in this.props.validMoves) {
         var to_from = this.splitMove(m);
         if (to_from[0] === square ) {
-          validMoves.push(to_from[1]);
+          validMoves.push(to_from[1].substr(0,2));
         }
       }
       this.setState({
@@ -126,6 +157,12 @@ class GameChessBoard extends React.Component {
   render() {
     return (
         <div className="chessboard">
+          <PawnPromotion
+              show={ this.state.showPawnPromotion }
+              activeColor={ this.props.fen.split(' ')[1] }
+              close={ this.closePawnPromotion }
+              handlePawnPromotion={ this.handlePawnPromotion }/>
+
           {this.squares()}
         </div>
       )

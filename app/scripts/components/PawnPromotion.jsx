@@ -6,23 +6,14 @@ import GameActions from '../actions/GameActions';
 class PawnPromotion extends React.Component {
   constructor(props) {
     super(props);
-    this.open = this.open.bind(this);
     this.click = this.click.bind(this);
     this.state = {
-      showModal: false,
       piece: 'Q'
     };
   }
 
   click() {
-    /*
-     * Make move?
-     */
-    this.close();
-  }
-
-  open() {
-    this.setState({ showModal: true });
+    this.props.handlePawnPromotion(this.state.piece);
   }
 
   _onOptionChange(piece) {
@@ -36,7 +27,9 @@ class PawnPromotion extends React.Component {
     var img_dimensions = {width: "100px", height: "100px"};
 
     return (
-      <Modal show={this.state.showModal} onHide={null}>
+      <Modal
+          show={this.props.show}
+          onHide={function(){}}>
         <Modal.Body>
           <h1>Choose a piece for pawn promotion</h1>
           <ButtonGroup style={{margin: '10px'}}>

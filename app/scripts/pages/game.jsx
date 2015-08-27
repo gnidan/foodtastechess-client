@@ -7,7 +7,6 @@ import GameChessBoard from '../components/GameChessBoard.jsx';
 import GameConcede from '../components/GameConcede.jsx';
 import GameOfferDraw from '../components/GameOfferDraw.jsx';
 import GameSidebar from '../components/GameSidebar.jsx';
-import PawnPromotion from '../components/PawnPromotion.jsx';
 
 import GameActions from '../actions/GameActions';
 import GameStore from '../stores/GameStore';
@@ -56,9 +55,6 @@ var Game = React.createClass({
         </div>
 
         <div className="panel-body">
-          <PawnPromotion
-              activeColor={ gameInfo.BoardState.split(' ')[1] } />
-
           <div className="col-sm-3">
             <div className="well">
                 <dl>
