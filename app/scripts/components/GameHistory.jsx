@@ -19,8 +19,8 @@ class GameHistory extends React.Component {
             <td>
               {(i + 1) / 2}.
             </td>
-            < GameNavTurn move={ this.props.history[i].Move } />
-            < GameNavTurn move={ this.props.history[i + 1].Move } />
+            < GameNavTurn number={i} move={ this.props.history[i].Move } />
+            < GameNavTurn number={i} move={ this.props.history[i + 1].Move } />
           </tr>
           );
       table.push(row);
@@ -31,7 +31,7 @@ class GameHistory extends React.Component {
             <td>
               {(i + 1) / 2}.
             </td>
-            < GameNavTurn move={ this.props.history[i].Move } />
+            < GameNavTurn number={i} move={ this.props.history[i].Move } />
             < GameNavTurn move='' />
           </tr>
           );

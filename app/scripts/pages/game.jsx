@@ -15,7 +15,8 @@ import GameStore from '../stores/GameStore';
 var Game = React.createClass({
   getInitialState: function() {
     return {
-      showTurn: null
+      tracking: false,
+      visibleTurn: null
     };
   },
 
@@ -32,6 +33,43 @@ var Game = React.createClass({
 
   componentWillUnmount: function() {
     clearInterval(this.loaderInterval);
+  },
+
+  currentTurn: function() {
+    var turns = this.props.games.gameHistories[this.props.params.id].length;
+    return turns === 1 ? 1 : turns;
+  },
+
+  changeVisibleTurn: function(n) {
+    if ( this.state.visibleTurn == null) {
+      this.setState({ visibleTurn: this.currentTurn() });
+    }
+    switch (n) {
+      case -2:
+        this.setState({ visibleTurn: 1 });
+        break;
+      case -1:
+        if (this.state.visibleTurn > 1) {
+          this.setState({ visibleTurn: this.state.visibleTurn - 1 });
+        }
+        else {
+          this.setState({ visibleTurn: 1 });
+        }
+        break;
+      case 1:
+        if (this.state.visibleTurn !== this.currentTurn()) {
+          this.setState({ visibleTurn: this.state.visibleTurn + 1 });
+        }
+        else {
+          this.setState({ visibleTurn: this.currentTurn() });
+        }
+        break;
+      case 2:
+        this.setState({ visibleTurn: this.currentTurn() });
+        break;
+      default: break;
+    }
+    this.setState({ tracking: this.state.visibleTurn !== this.currentTurn() });
   },
 
   render: function() {
@@ -85,8 +123,9 @@ var Game = React.createClass({
                 validMoves= { gameValidMoves }
                 fen={ gameInfo.BoardState }
                 history={ gameHistory }
-                historyMode={ this.state.historyMode }
+                tracking={ this.state.tracking }
                 userActive={ userActive }
+                visibleTurn={ this.state.visibleTurn }
             />
           </div>
 
@@ -94,7 +133,10 @@ var Game = React.createClass({
             <GameSidebar
                 history={ gameHistory }
                 activeColor={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }
-                userActive={ userActive } />
+                userActive={ userActive }
+                visibleTurn={ this.state.visibleTurn }
+                tracking={ this.state.tracking }
+                changeVisibleTurn={ this.changeVisibleTurn } />
           </div>
 
         </div>

@@ -11,7 +11,11 @@ class GameNavigation extends React.Component {
   render() {
     return (
       <div>
-        <GameHistory history={ this.props.history }/>
+        <GameNavBar
+            visibleTurn={ this.props.visibleTurn }
+            changeVisibleTurn={ this.props.changeVisibleTurn }
+            currentTurn={ this.props.history.length }/>
+        <GameHistory history={ this.props.history } />
       </div>
     );
   }
