@@ -36,11 +36,18 @@ var Game = React.createClass({
     clearInterval(this.loaderInterval);
   },
 
-  componentDidUpdate: function() {
-    if (this.props.games.gameHistories[this.gameID()] &&
-            this.state.visibleTurn === null) {
-        this.setState({ visibleTurn: this.currentTurn() });
+  componentWillReceiveProps: function(nextProps) {
+    var newVisibleTurn = this.state.visibleTurn;
+    if (!this.state.tracking) {
+        newVisibleTurn = null;
     }
+
+    if (nextProps.games.gameHistories[this.gameID()] &&
+            newVisibleTurn === null) {
+        newVisibleTurn = nextProps.games.gameHistories[this.gameID()].length - 1;
+    }
+
+    this.setState({ visibleTurn: newVisibleTurn });
   },
 
   // turn 0 - START
