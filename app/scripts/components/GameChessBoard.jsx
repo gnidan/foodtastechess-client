@@ -60,7 +60,7 @@ class GameChessBoard extends React.Component {
   }
 
   squareClickHandler(square) {
-    if (! this.props.userActive ) {
+    if (! this.props.userActive || this.props.tracking) {
       return;
     }
     if (this.state.activeSquare === square) {
@@ -113,11 +113,15 @@ class GameChessBoard extends React.Component {
       <div className="square_wrapper"
            key={position}
            id={position}>
-        <BoardSquare active={ position === this.state.activeSquare }
+        <BoardSquare active={ this.props.tracking?
+                                false :
+                                position === this.state.activeSquare }
                      pos={position}
                      black={black}
                      piece={piece}
-                     validMove={ _.contains(this.state.validMoves, position) }
+                     validMove={ this.props.tracking ?
+                                   false :
+                                   _.contains(this.state.validMoves, position) }
                      clickHandler={this.squareClickHandler}>
         </BoardSquare>
       </div>

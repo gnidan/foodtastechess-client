@@ -51,7 +51,9 @@ class GameSidebar extends React.Component {
         <div className="panel-body">
           <div className="row-fluid">
             <GameNavigation
-                history={ this.props.history } />
+                history={ this.props.history }
+                changeVisibleTurn={ this.props.changeVisibleTurn }
+                visibleTurn={ this.props.visibleTurn } />
           </div>
         </div>
 

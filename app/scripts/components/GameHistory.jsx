@@ -7,6 +7,10 @@ class GameHistory extends React.Component {
     super();
   }
 
+  isVisibleMove(i) {
+      return this.props.visibleTurn === i;
+  }
+
   historyTable() {
     if (this.props.history.length <= 1) {
       return '';
@@ -19,8 +23,8 @@ class GameHistory extends React.Component {
             <td>
               {(i + 1) / 2}.
             </td>
-            < GameNavTurn move={ this.props.history[i].Move } />
-            < GameNavTurn move={ this.props.history[i + 1].Move } />
+            < GameNavTurn number={i} move={ this.props.history[i].Move } active={ this.isVisibleMove(i) }/>
+            < GameNavTurn number={i} move={ this.props.history[i + 1].Move } active={ this.isVisibleMove(i + 1) } />
           </tr>
           );
       table.push(row);
@@ -31,7 +35,7 @@ class GameHistory extends React.Component {
             <td>
               {(i + 1) / 2}.
             </td>
-            < GameNavTurn move={ this.props.history[i].Move } />
+            < GameNavTurn number={i} move={ this.props.history[i].Move } active={ this.isVisibleMove(i) } />
             < GameNavTurn move='' />
           </tr>
           );
