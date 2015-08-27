@@ -15,7 +15,8 @@ import GameStore from '../stores/GameStore';
 var Game = React.createClass({
   getInitialState: function() {
     return {
-      visibleTurn: null
+      visibleTurn: null,
+      tracking: false
     };
   },
 
@@ -52,7 +53,7 @@ var Game = React.createClass({
   },
 
   changeVisibleTurn: function(n) {
-    var visibleTurn;
+    var visibleTurn, newVisibleTurn, newTracking;
 
     if (this.state.visibleTurn === null) {
         visibleTurn = this.currentTurn();
@@ -62,25 +63,33 @@ var Game = React.createClass({
 
     switch (n) {
       case -2:
-        this.setState({ visibleTurn: 0 });
+        newVisibleTurn = 0;
         break;
       case -1:
         var prevTurn = visibleTurn > 0 ?
                 visibleTurn - 1 :
                 0;
-        this.setState({ visibleTurn: prevTurn })
+        newVisibleTurn = prevTurn;
         break;
       case 1:
         var nextTurn = visibleTurn < this.currentTurn() ?
                 visibleTurn + 1 :
                 this.currentTurn();
-        this.setState({ visibleTurn: nextTurn })
+        newVisibleTurn = nextTurn;
         break;
       case 2:
-        this.setState({ visibleTurn: this.currentTurn() });
+        newVisibleTurn = this.currentTurn();
         break;
       default: break;
     }
+
+    if (newVisibleTurn == this.currentTurn()) {
+        newTracking = false;
+    } else {
+        newTracking = true;
+    }
+
+    this.setState({tracking: newTracking, visibleTurn: newVisibleTurn});
   },
 
   boardStateAtVisibleTurn: function() {
@@ -116,8 +125,7 @@ var Game = React.createClass({
   },
 
   tracking: function() {
-    return this.state.visibleTurn !== null &&
-        this.state.visibleTurn !== this.currentTurn();
+    return this.state.tracking;
   },
 
   render: function() {
