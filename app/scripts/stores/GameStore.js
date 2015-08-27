@@ -107,10 +107,43 @@ var GameStore = Reflux.createStore({
         type: 'POST'
     })
       .then(_.bind(function() { this.onLoadGame(gameId) }, this));
+  },
+
+  onConcedeGame(gameId) {
+    $.ajax(config.apiRoot + "/api/games/" + gameId + "/concede", {
+        data: JSON.stringify({}),
+        contentType: 'application/json',
+        type: 'POST'
+    })
+      .then(_.bind(function() { this.onLoadGame(gameId) }, this));
+  },
+
+  onOfferDraw(gameId) {
+    $.ajax(config.apiRoot + "/api/games/" + gameId + "/offerdraw", {
+        data: JSON.stringify({}),
+        contentType: 'application/json',
+        type: 'POST'
+    })
+      .then(_.bind(function() { this.onLoadGame(gameId) }, this));
+  },
+
+  onAcceptDraw(gameId) {
+    $.ajax(config.apiRoot + "/api/games/" + gameId + "/respondoffer", {
+        data: JSON.stringify({accept: true}),
+        contentType: 'application/json',
+        type: 'POST'
+    })
+      .then(_.bind(function() { this.onLoadGame(gameId) }, this));
+  },
+
+  onRejectDraw(gameId) {
+    $.ajax(config.apiRoot + "/api/games/" + gameId + "/respondoffer", {
+        data: JSON.stringify({accept: false}),
+        contentType: 'application/json',
+        type: 'POST'
+    })
+      .then(_.bind(function() { this.onLoadGame(gameId) }, this));
   }
-
-
-
 });
 
 export default GameStore;

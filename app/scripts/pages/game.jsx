@@ -7,8 +7,8 @@ import GameChessBoard from '../components/GameChessBoard.jsx';
 import GameConcede from '../components/GameConcede.jsx';
 import GameOfferDraw from '../components/GameOfferDraw.jsx';
 import GameSidebar from '../components/GameSidebar.jsx';
-import PawnPromotion from '../components/PawnPromotion.jsx';
 
+import LobbyActions from '../actions/LobbyActions';
 import GameActions from '../actions/GameActions';
 import GameStore from '../stores/GameStore';
 
@@ -20,6 +20,7 @@ var Game = React.createClass({
   },
 
   componentWillMount: function() {
+    LobbyActions.checkLogin();
     var gameID = this.props.params.id;
     GameActions.loadGame(gameID);
   },
@@ -110,6 +111,10 @@ var Game = React.createClass({
     return this.props.games.games[this.gameID()].UserActive;
   },
 
+  drawOfferToUser: function() {
+    return this.props.games.games[this.gameID()].DrawOfferToUser;
+  },
+
   tracking: function() {
     return this.state.visibleTurn !== null &&
         this.state.visibleTurn !== this.currentTurn();
@@ -127,6 +132,24 @@ var Game = React.createClass({
     var gameInfo = this.gameInfo();
     var gameValidMoves = this.validMoves();
     var userActive = this.userActive();
+    var drawOfferToUser = this.drawOfferToUser();
+
+    var sidebarOpts = {
+        gameID: gameID,
+        history: this.gameHistory(),
+        activeColor: gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black",
+        userActive: userActive,
+        drawOfferToUser: drawOfferToUser,
+        visibleTurn: this.state.visibleTurn,
+        tracking: this.tracking(),
+        changeVisibleTurn: this.changeVisibleTurn
+    }
+
+    if (gameInfo.GameStatus == "ended") {
+        sidebarOpts.gameEnded = true;
+        sidebarOpts.reason = gameInfo.GameEndReason;
+        sidebarOpts.winner = gameInfo.Winner;
+    }
 
     return (
       <div className="panel panel-default">
@@ -136,9 +159,6 @@ var Game = React.createClass({
         </div>
 
         <div className="panel-body">
-          <PawnPromotion
-              activeColor={ gameInfo.BoardState.split(' ')[1] } />
-
           <div className="col-sm-3">
             <div className="well">
                 <dl>
@@ -157,6 +177,10 @@ var Game = React.createClass({
                 </dl>
             </div>
             <CapturedPieces pieces={gameInfo.BoardState.split(' ')[0].replace(/[\d\/]/g,'')}/>
+            <hr />
+            <GameOfferDraw gameID={ gameID } gameStatus={ gameInfo.GameStatus } drawOfferState={ gameInfo.DrawOfferState } />
+            <br />
+            <GameConcede gameID={ gameID } gameStatus={ gameInfo.GameStatus } />
           </div>
 
           <div className="col-sm-6">
@@ -170,13 +194,7 @@ var Game = React.createClass({
           </div>
 
           <div className="col-sm-3">
-            <GameSidebar
-                history={ this.gameHistory() }
-                activeColor={ gameInfo.BoardState.split(' ')[1] === 'w' ? "White" : "Black" }
-                userActive={ userActive }
-                visibleTurn={ this.state.visibleTurn }
-                tracking={ this.tracking() }
-                changeVisibleTurn={ this.changeVisibleTurn } />
+            <GameSidebar {...sidebarOpts} />
           </div>
 
         </div>
